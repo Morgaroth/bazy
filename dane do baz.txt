@@ -1,0 +1,6 @@
+has³o roota do bazy root123
+
+dbadmin do tutoriala:
+
+TutorialClient
+client123
