@@ -4,7 +4,8 @@
 	{% for poll in polls %}
 		<li>
 			<div>
-				Question: {{poll.question}} <br/>
+				Question: {{poll.question}}<br/>
+				Published: {{poll.polldetails.published}}<br/>
 				<ul>
 					{% for choice in poll.choice_set.all %}
 						<li>choice: {{choice.choice}}, votes= {{choice.votes}}

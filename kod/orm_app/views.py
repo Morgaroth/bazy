@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from orm_app.models import Choice, Poll
+from orm_app.models import Choice, Poll, PollDetails
+from django.utils import timezone
 
 def index(request):
 	polls = Poll.objects.all()
+	print polls[0]
 	return render(request,'polls/index.html',{'polls': polls})
 
 def createchoice(request):
@@ -10,7 +12,9 @@ def createchoice(request):
 	return index(request)	
 
 def createpoll(request):
-	Poll(question=request.POST['question']).save()
+	poll = Poll(question=request.POST['question'])
+	poll.save()
+	PollDetails(poll=poll,published=timezone.now()).save()
 	return index(request)
 
 def vote(request):
