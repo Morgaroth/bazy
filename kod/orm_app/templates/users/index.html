@@ -2,7 +2,7 @@
 
 <ul>
 	{% for user in users %}
-		<li>Nick: {{user.name}}</li>
+		<li>Nick: {{user.name}}<hr/></li>
 	{% endfor %}
 </ul>
 <form method="post" action="{% url 'createuser' %}">{% csrf_token %}
