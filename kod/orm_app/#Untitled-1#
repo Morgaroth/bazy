@@ -1,0 +1,15 @@
+from orm_app.models import Choice, Poll, PollDetails, User
+poll = Poll(question='First question?')
+poll.save()
+poll.choice_set.create(choice='First choice', votes=10)
+poll.choice_set.create(choice='Second choice', votes=3)
+poll.choice_set.create(choice='Third choice', votes=6)
+poll = Poll(question='Another question?')
+poll.save()
+poll.choice_set.create(choice='First in another', votes=17)
+poll.choice_set.create(choice='Second in another', votes=0)
+from django.utils import timezone
+polldet = PollDetails(poll=Poll.objects.all()[0], published=timezone.now())
+polldet.save()
+polldet = PollDetails(poll=Poll.objects.all()[1], published='2014-05-09')
+polldet.save()
