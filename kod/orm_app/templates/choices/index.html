@@ -1,0 +1,15 @@
+<h1>Choices:</h1>
+
+<ul>
+
+{% for choice in choices %}
+
+	<li>Choice: {{choice.choice}}, votes= {{choice.votes}}  
+		<form method="post" action="{% url 'vote' %}">{% csrf_token %}
+			<input type="hidden" name="choiceid" value="{{choice.id}}">
+			<input type="submit" value="vote!" />
+		</form>
+	</li>
+{% endfor %}
+
+</ul>
