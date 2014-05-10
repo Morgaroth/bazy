@@ -5,4 +5,6 @@ from django.db import models
 class Choice(models.Model):
 	choice = models.CharField(max_length=200)
 	votes = models.IntegerField()
-
+	
+	def __unicode__(self):
+		return str(self.id) + ' ' + self.choice + ' ' + str(self.votes)
