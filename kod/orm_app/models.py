@@ -8,10 +8,18 @@ class Poll(models.Model):
 	def __unicode__(self):
 		return self.question
 
+
+class PollDetails(models.Model):
+	published = models.DateField()
+	poll = models.OneToOneField(Poll)
+	
+	def __unicode__(self):
+		return str(self.published)
+
 class Choice(models.Model):
+	poll = models.ForeignKey(Poll)
 	choice = models.CharField(max_length=200)
 	votes = models.IntegerField()
-	poll = models.ForeignKey(Poll)
 	
 	def __unicode__(self):
 		return str(self.id) + ' ' + self.choice + ' ' + str(self.votes)
