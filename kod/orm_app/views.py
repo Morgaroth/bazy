@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
-from orm_app.models import Choice
+from orm_app.models import Choice, Poll
 
 def index(request):
-	choices = Choice.objects.all()
-	return render(request,'choices/index.html',{'choices': choices})
+	polls = Poll.objects.all()
+	return render(request,'polls/index.html',{'polls': polls})
 
-def createpage(request):
-	return render(request,'choices/create.html')
+def createchoice(request):
+	Poll.objects.get(pk=request.POST['pollid']).choice_set.create(choice=request.POST['choice'], votes=0)
+	return index(request)	
 
-def created(request):
-	Choice(choice=request.POST['choice'], votes=request.POST['votes']).save()
+def createpoll(request):
+	Poll(question=request.POST['question']).save()
 	return index(request)
 
 def vote(request):

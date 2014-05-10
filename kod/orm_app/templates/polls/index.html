@@ -1,0 +1,34 @@
+<h1>Polls:</h1>
+
+<ul>
+	{% for poll in polls %}
+		<li>
+			<div>
+				Question: {{poll.question}} <br/>
+				<ul>
+					{% for choice in poll.choice_set.all %}
+						<li>choice: {{choice.choice}}, votes= {{choice.votes}}
+							<form method="post" action="{% url 'vote' %}">{% csrf_token %}
+								<input type="hidden" name="choiceid" value="{{choice.id}}">
+								<input type="submit" value="vote!" />
+							</form>
+						</li>
+					{% endfor %}
+					<br/>
+					<form method="post" action="{% url 'createchoice' %}">{% csrf_token %}
+						<input type="hidden" name="pollid" value="{{poll.id}}">
+						<br/>
+						<input type="text" name="choice" placeholder="type text">
+						<br/>
+						<input type="submit" value="create choice!" />
+					</form>
+				</ul>
+			</div>
+		</li>
+	{% endfor %}
+	<form method="post" action="{% url 'createpoll' %}">{% csrf_token %}
+		<input type="text" name="question" placeholder="type text">
+		<br/>
+		<input type="submit" value="create poll!" />
+	</form>
+</ul>
