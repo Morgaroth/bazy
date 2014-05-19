@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'orm_tutorial.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-	url(r'^choices/', include('orm_app.urls')),
+	url(r'^tutorial/', include('orm_app.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
 )

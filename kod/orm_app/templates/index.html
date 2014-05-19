@@ -2,32 +2,47 @@
 
 <ul>
 <hr size=12 color="black"/>
-{% for poll in polls %}
-	<li>
-	Question: {{poll.question}}<br/>
-	Published: {{poll.polldetails.published}}<br/>
-		<ul>
-			<hr size=3 color="green"/>
-			{% for choice in poll.choice_set.all %}
-				<li>response: {{choice.choice}}, votes={{choice.votes}}
-					<form method="post" action="{% url 'vote' %}">{% csrf_token %}
-						<input type="hidden" name="choiceid" value="{{choice.id}}">
-						<input type="submit" value="vote!" />
-					</form>
-				</li>
+	{% for poll in polls %}
+		<li>
+			Question: {{poll.question}}<br/>
+			Published: {{poll.polldetails.published}}<br/>
+			<ul>
 				<hr size=3 color="green"/>
-			{% endfor %}
-			<form method="post" action="{% url 'createchoice' %}">{% csrf_token %}
-				<input type="hidden" name="pollid" value="{{poll.id}}">
-				<input type="text" name="choice" placeholder="type Your choice">
-				<input type="submit" value="create choice!" />
-			</form>
-		</ul>
-	</li>
-	<hr size=12 color="black"/>
-{% endfor %}
+				{% for choice in poll.choice_set.all %}
+					<li>response: {{choice.choice}}, votes= {{choice.votes}}
+						<form method="post" action="{% url 'vote' %}">{% csrf_token %}
+							<input type="hidden" name="choiceid" value="{{choice.id}}">
+							<input type="submit" value="vote!" />
+						</form>
+					</li>
+					<hr size=3 color="green"/>
+				{% endfor %}
+				<form method="post" action="{% url 'createchoice' %}">{% csrf_token %}
+					<input type="hidden" name="pollid" value="{{poll.id}}">
+					<input type="text" name="choice" placeholder="type Your choice">
+					<input type="submit" value="create choice!" />
+				</form>
+				<h4>Observers:</h4>
+				<ul>
+					{% for observer in poll.observers.all %}
+						<li>{{observer.name}}</li>
+					{% endfor %}
+				</ul>
+				<form method="post" action="{% url 'watch' %}">{% csrf_token %}
+					<input type="hidden" name="pollid" value="{{poll.id}}">
+					<input type="text" name="name" placeholder="type Your name">
+					<input type="submit" value="watch poll!" />
+				</form>
+			</ul>
+		</li>
+		<hr size=12 color="black"/>
+	{% endfor %}
 </ul>
 <form method="post" action="{% url 'createpoll' %}">{% csrf_token %}
 	<input type="text" name="question" placeholder="type poll question">
 	<input type="submit" value="create poll!" />
+</form>
+<form method="post" action="{% url 'createuser' %}">{% csrf_token %}
+	<input type="text" name="observerName" placeholder="type your name">
+	<input type="submit" value="create user!" />
 </form>
