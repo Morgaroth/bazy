@@ -36,12 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'django_faker',
     'orm_app',
 )
 
-FAKER_LOCALE = None
-FAKER_PROVIDERS = None
 
 
 MIDDLEWARE_CLASSES = (
